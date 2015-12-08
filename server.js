@@ -128,7 +128,7 @@ app.post('/users', function(req, res) {
 	
 	db.user.create(body)
 		.then(function(user) {
-			res.json(user);
+			res.send(user.toPublicJSON(['id','email','updatedAt','createdAt']));
 		})
 		.catch(function(e) {
 			res.status(400).json(e);
