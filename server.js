@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
 // GET /todos?completed=false&q=work
 app.get('/todos', middleware.requireAuthentication, function(req, res) {
 	var queryParams = _.pick(req.query, ['q','completed']),
-		where = {};
+		where = { userId: req.user.get('id') };
 	
 	if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'true') {
 		where.completed = true;
@@ -44,9 +44,10 @@ app.get('/todos', middleware.requireAuthentication, function(req, res) {
 // GET /todos/:id
 app.get('/todos/:id', middleware.requireAuthentication, function(req, res) {
 	
-	var todoId = parseInt(req.params.id, 10);
+	var todoId = parseInt(req.params.id, 10),
+		where = { userId: req.user.get('id'), id: todoId };
 	
-	db.todo.findById(todoId)
+	db.todo.findOne({ where: where })
 		.then(function(todo) {
 			if (!todo) {
 				return res.status(404).send();
@@ -86,9 +87,10 @@ app.post('/todos', middleware.requireAuthentication, function(req, res) {
 // DELETE /todos/:id
 app.delete('/todos/:id', middleware.requireAuthentication, function(req, res) {
 	
-	var todoId = parseInt(req.params.id, 10);
+	var todoId = parseInt(req.params.id, 10),
+		where = { userId: req.user.get('id'), id: todoId };
 	
-	db.todo.destroy({ where: { id: todoId } })
+	db.todo.destroy({ where: where })
 		.then(function(rowsDeleted) {
 			if (rowsDeleted === 0) {
 				res.status(404).json({ "error": "No todo with that id found." });
@@ -104,6 +106,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 	
 	var body = _.pick(req.body, ['description','completed']),
 		todoId = parseInt(req.params.id, 10),
+		where = { userId: req.user.get('id'), id: todoId },
 		attributes = {};
 	
 	if (body.hasOwnProperty('completed')) {
@@ -114,7 +117,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 		attributes.description = body.description;
 	}
 	
-	db.todo.findById(todoId)
+	db.todo.findOne({ where: where })
 		.then(function(todo) {
 			if (!todo) {
 				return res.status(404).send()
@@ -164,6 +167,6 @@ app.post('/users/login', function(req, res) {
 	
 });
 
-db.sequelize.sync({ force: true }).then(function() {
+db.sequelize.sync().then(function() {
 	app.listen(PORT, function() { console.log('Express listening on port: ' + PORT) });
 });
