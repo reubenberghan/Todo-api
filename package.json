@@ -1,7 +1,7 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful todo api that uses SQLite to store todo's",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
