@@ -25,4 +25,4 @@ Returns a todo by ID where `:id` is the ID of a particular todo.
 #### /todos
 Sending a POST HTTP request to this endpoint will create a new todo for the authenticated user.
 
-The new todo has to be contained in the body of the request in JSON format with a `"description"` property of `string` type and a `"completed"` property of `boolean` type.
+The new todo will need to be contained in the body of the request in JSON format and must have a `"description"` property of type `string` and not be empty the `"completed"` property is optional and a default will be set if not provided however if is present then must be of type `boolean`.
