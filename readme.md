@@ -23,6 +23,13 @@ Returns a todo by ID where `:id` is the ID of a particular todo.
 ### POST requests
 
 #### /todos
-Sending a POST HTTP request to this endpoint will create a new todo for the authenticated user.
+Sending a POST request to this endpoint will create a new todo for the authenticated user.
 
 The new todo will need to be contained in the body of the request in JSON format and must have a `"description"` property of type `string` and not be empty the `"completed"` property is optional and a default will be set if not provided however if is present then must be of type `boolean`.
+
+#### /users
+This endpoint will create a new user.
+
+Similar to the todo the user will need to be a JSON object in the body. It will require an `"email"` property of type `string`, the string will also be validated as an email or not, and a `"password"` property of type `string`. Both a required to create a user and must not be empty strings.
+
+A salt will be generated to be added to the password and both the salt and the resulting hash of combining the password and salt will be encrypted before being saved to the database.
