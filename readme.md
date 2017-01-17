@@ -8,7 +8,10 @@ Also incorporates an authentication layer using crypto-js, bcrypt and also jsonw
 
 All data is returned in JSON format.
 
-HTTP Method | URI | Description
---- | --- | ---
-GET | /todos | Will return all todos for authenticated user. Also has the option to be given the query parameters `completed` and/or `q`. `completed` takes a boolean value which filters the returned todo list by whether the todo is completed or not. `q` takes a string which is used to filter the returned todos with the SQL LIKE operator.
-GET | /todos/:id | Returns a todo by ID where `:id` is the ID of a particular todo.
+### GET requests
+
+#### /todos
+Will return all todos for authenticated user. Also has the option to be given the query parameters `completed` and/or `q`. `completed` takes a boolean value which filters the returned todo list by whether the todo is completed or not. `q` takes a string which is used to filter the returned todos with the SQL LIKE operator.
+
+#### /todos/:id
+Returns a todo by ID where `:id` is the ID of a particular todo.
