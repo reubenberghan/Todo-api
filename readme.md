@@ -19,3 +19,10 @@ For example `/todos?completed=false&q=clean` would return all todos that had a c
 
 #### /todos/:id
 Returns a todo by ID where `:id` is the ID of a particular todo.
+
+### POST requests
+
+#### /todos
+Sending a POST HTTP request to this endpoint will create a new todo for the authenticated user.
+
+The new todo has to be contained in the body of the request in JSON format with a `"description"` property of `string` type and a `"completed"` property of `boolean` type.
