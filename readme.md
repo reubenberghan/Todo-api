@@ -30,6 +30,26 @@ The new todo will need to be contained in the body of the request in JSON format
 #### /users
 This endpoint will create a new user.
 
-Similar to the todo the user will need to be a JSON object in the body. It will require an `"email"` property of type `string`, the string will also be validated as an email or not, and a `"password"` property of type `string`. Both a required to create a user and must not be empty strings.
+Similar to the todo the user will need to be a JSON object in the body. It will require an `"email"` property of type `string`, the string will also be validated as an email or not, and a `"password"` property of type `string`. Both are required and must not be empty strings.
 
-A salt will be generated to be added to the password and both the salt and the resulting hash of combining the password and salt will be encrypted before being saved to the database.
+A salt will be generated for the password and both the salt and the resulting hash from the password and salt combination will be encrypted before being saved to the database.
+
+#### /users/login
+This will authenticate and login a user returning a token to allow them to make subsequent requests to the other endpoints.
+
+In exactly the same way as creating a user it requires a JSON object in the body with the `"email"` and `"password"` properties of type `string` which will be used to authenticate against the users stored in the database.
+
+### PUT requests
+
+#### /todos/:id
+A PUT request to this endpoint will update a todo with the Id equal to that passed in the URI at `:id`.
+
+The body of the request must contain the JSON object with the properties `"description"` (`string`) and/or `"complete"` (`boolean`) to update.
+
+### DELETE requests
+
+### /todos/:id
+A DELETE request to this endpoint will remove the authenticated users todo with the Id equal to that passed in the URI at `:id`.
+
+### /todos/login
+A DELETE request to this endpoint will destroy the web token effectively logging the user out.
