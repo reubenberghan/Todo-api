@@ -48,8 +48,8 @@ The body of the request must contain the JSON object with the properties `"descr
 
 ### DELETE requests
 
-### /todos/:id
+#### /todos/:id
 A DELETE request to this endpoint will remove the authenticated users todo with the Id equal to that passed in the URI at `:id`.
 
-### /todos/login
+#### /todos/login
 A DELETE request to this endpoint will destroy the web token effectively logging the user out.
