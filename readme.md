@@ -53,3 +53,9 @@ A DELETE request to this endpoint will remove the authenticated users todo with 
 
 #### /todos/login
 A DELETE request to this endpoint will destroy the web token effectively logging the user out.
+
+## Todo list
+
+- [ ] Refactor for ES2015 and also pulling API endpoints into their own file
+- [ ] Set Github Pages site to test and host docs
+- [ ] Refactor readme.md to have endpoints as headings with HTTP request verbs as sub-headings
