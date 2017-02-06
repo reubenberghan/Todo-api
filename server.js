@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
 
 // GET /todos?completed=false&q=work
 app.get('/todos', middleware.requireAuthentication, function(req, res) {
-	var queryParams = _.pick(req.query, ['q','completed']),
+	const queryParams = _.pick(req.query, ['q','completed']),
 		where = { userId: req.user.get('id') };
 
 	if (queryParams.hasOwnProperty('completed') && queryParams.completed === 'true') {
@@ -44,7 +44,7 @@ app.get('/todos', middleware.requireAuthentication, function(req, res) {
 // GET /todos/:id
 app.get('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
-	var todoId = parseInt(req.params.id, 10),
+	const todoId = parseInt(req.params.id, 10),
 		where = { userId: req.user.get('id'), id: todoId };
 
 	db.todo.findOne({ where: where })
@@ -61,7 +61,7 @@ app.get('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
 // POST /todos
 app.post('/todos', middleware.requireAuthentication, function(req, res) {
-	var body = _.pick(req.body, ['description','completed']);
+	const body = _.pick(req.body, ['description','completed']);
 
 	if (!_.isBoolean(body.completed) ||
 		!_.isString(body.description) ||
@@ -87,7 +87,7 @@ app.post('/todos', middleware.requireAuthentication, function(req, res) {
 // DELETE /todos/:id
 app.delete('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
-	var todoId = parseInt(req.params.id, 10),
+	const todoId = parseInt(req.params.id, 10),
 		where = { userId: req.user.get('id'), id: todoId };
 
 	db.todo.destroy({ where: where })
@@ -104,10 +104,10 @@ app.delete('/todos/:id', middleware.requireAuthentication, function(req, res) {
 // PUT /todos/:id
 app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
-	var body = _.pick(req.body, ['description','completed']),
-		todoId = parseInt(req.params.id, 10),
-		where = { userId: req.user.get('id'), id: todoId },
-		attributes = {};
+	const body = _.pick(req.body, ['description','completed']);
+	const todoId = parseInt(req.params.id, 10);
+	const where = { userId: req.user.get('id'), id: todoId };
+	const attributes = {};
 
 	if (body.hasOwnProperty('completed')) {
 		attributes.completed = body.completed;
@@ -136,7 +136,7 @@ app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 
 // POST /users
 app.post('/users', function(req, res) {
-	var body = _.pick(req.body, ['email','password']);
+	const body = _.pick(req.body, ['email','password']);
 
 	db.user.create(body)
 		.then(function(user) {
@@ -150,12 +150,12 @@ app.post('/users', function(req, res) {
 
 // POST /users/login
 app.post('/users/login', function(req, res) {
-	var body = _.pick(req.body, ['email', 'password']),
-		userInstance;
+	const body = _.pick(req.body, ['email', 'password']);
+	let userInstance;
 
 	db.user.authenticate(body)
 		.then(function(user) {
-			var token = user.generateToken('authentication');
+			const token = user.generateToken('authentication');
 
 			userInstance = user;
 
