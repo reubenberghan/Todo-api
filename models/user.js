@@ -1,10 +1,10 @@
-var bcrypt = require('bcryptjs'),
-	_ = require('underscore'),
-	cryptojs = require('crypto-js'),
-	jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const _ = require('underscore');
+const cryptojs = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
 module.exports = function(sequelize, DataTypes) {
-	var user = sequelize.define('user', {
+	const user = sequelize.define('user', {
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -31,9 +31,9 @@ module.exports = function(sequelize, DataTypes) {
 				}
 			},
 			set: function(value) {
-				var salt = bcrypt.genSaltSync(10),
+				const salt = bcrypt.genSaltSync(10),
 					hashedPassword = bcrypt.hashSync(value, salt);
-					
+
 				this.setDataValue('password', value);
 				this.setDataValue('salt', salt);
 				this.setDataValue('password_hash', hashedPassword);
@@ -53,13 +53,13 @@ module.exports = function(sequelize, DataTypes) {
 					if (!_.isString(body.email) || !_.isString(body.password)) {
 						return reject();
 					}
-					
+
 					user.findOne({ where: { email: body.email.toLowerCase() } })
 						.then(function(user) {
 							if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
 								return reject();
 							}
-							
+
 							resolve(user);
 						})
 						.catch(function(e) {
@@ -70,10 +70,10 @@ module.exports = function(sequelize, DataTypes) {
 			findByToken: function(token) {
 				return new Promise(function(resolve, reject) {
 					try {
-						var decodedJWT = jwt.verify(token, 'qwerty098'),
+						const decodedJWT = jwt.verify(token, 'qwerty098'),
 							bytes = cryptojs.AES.decrypt(decodedJWT.token, 'abc123!@#!'),
 							tokenData = JSON.parse(bytes.toString(cryptojs.enc.Utf8));
-							
+
 						user.findById(tokenData.id)
 							.then(function(user) {
 								if (!user) {
@@ -92,28 +92,28 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		instanceMethods: {
 			toPublicJSON: function(toPublic) {
-				var json = this.toJSON();
+				const json = this.toJSON();
 				return _.pick(json, toPublic);
 			},
 			generateToken: function(type) {
 				if (!_.isString(type)) {
 					return undefined;
 				}
-				
+
 				try {
-					
-					var stringData = JSON.stringify({ id: this.get('id'), type: type }),
-						encryptedData = cryptojs.AES.encrypt(stringData, 'abc123!@#!').toString(),
-						token = jwt.sign({ token: encryptedData }, 'qwerty098');
-						
+
+					const stringData = JSON.stringify({ id: this.get('id'), type: type });
+					const encryptedData = cryptojs.AES.encrypt(stringData, 'abc123!@#!').toString();
+					const token = jwt.sign({ token: encryptedData }, 'qwerty098');
+
 					return token;
-					
+
 				} catch (e) {
 					return undefined;
 				}
 			}
 		}
 	});
-	
+
 	return user;
 };
