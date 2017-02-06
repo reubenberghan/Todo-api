@@ -1,5 +1,5 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(undefined, undefined, undefined, {
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(undefined, undefined, undefined, {
 	'dialect': 'sqlite',
 	'storage': __dirname + '/basic-sqlite-database.sqlite'
 });
@@ -28,7 +28,7 @@ sequelize.sync({
 	// force: true
 }).then(function() {
 	console.log('Everything is synced');
-	
+
 	// Todo.create({
 	// 	description: 'Clean bike',
 	// 	completed: true
@@ -37,7 +37,7 @@ sequelize.sync({
 	// 		user.addTodo(todo);
 	// 	});
 	// });
-	
+
 	User.findById(1).then(function(user) {
 		user.getTodos({ where: { completed: true }}).then(function(todos) {
 			todos.forEach(function(todo) {
@@ -45,7 +45,7 @@ sequelize.sync({
 			});
 		});
 	});
-	
+
 	// User.create({
 	// 	email: 'reuben@example.com'
 	// }).then(function() {
@@ -57,7 +57,7 @@ sequelize.sync({
 	// 		user.addTodo(todo);
 	// 	});
 	// });
-	
+
 	// Todo.findById(2)
 	// 	.then(function(todo) {
 	// 		if (!todo) {
@@ -68,7 +68,7 @@ sequelize.sync({
 	// 	.catch(function(e) {
 	// 		console.log(e);
 	// 	});
-	
+
 	// Todo.create({
 	// 	description: 'walk the dog',
 	// 	completed: false
