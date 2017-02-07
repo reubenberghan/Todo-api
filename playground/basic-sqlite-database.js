@@ -4,7 +4,7 @@ const sequelize = new Sequelize(undefined, undefined, undefined, {
 	'storage': __dirname + '/basic-sqlite-database.sqlite'
 });
 
-var Todo = sequelize.define('todo', {
+const Todo = sequelize.define('todo', {
 	description: {
 		type: Sequelize.STRING,
 		allowNull: false,
@@ -19,7 +19,7 @@ var Todo = sequelize.define('todo', {
 	}
 });
 
-var User = sequelize.define('user', { email: Sequelize.STRING });
+const User = sequelize.define('user', { email: Sequelize.STRING });
 
 Todo.belongsTo(User);
 User.hasMany(Todo);
