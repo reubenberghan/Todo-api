@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const _ = require('underscore');
-const db = require('./db');
+const db = require('./db/db');
 const bcrypt = require('bcryptjs');
 const middleware = require('./middleware')(db);
 
