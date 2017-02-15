@@ -1,9 +1,13 @@
+'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const _ = require('underscore');
 const db = require('./db/db');
 const bcrypt = require('bcryptjs');
 const middleware = require('./middleware')(db);
+
+const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +16,8 @@ const todoNextId = 1;
 
 
 app.use(bodyParser.json());
+
+app.use('/', routes);
 
 app.get('/', function(req, res) {
 	res.send('Todo API Root');
