@@ -4,7 +4,7 @@
   "description": "RESTful todo api that uses SQLite to store todo's",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "Reuben Berghan",
   "license": "ISC",
