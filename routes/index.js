@@ -1,9 +1,8 @@
 'use strict';
 
 const routes = require('express').Router();
+const todos = require('./todos');
 
-routes.get('/test', (req, res) => {
-  res.status(200).json({ message: 'Connected!' });
-});
+routes.use('/todos', todos);
 
 module.exports = routes;
