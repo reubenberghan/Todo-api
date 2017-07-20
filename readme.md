@@ -4,6 +4,8 @@ Uses Node.js and Express to create the server and REST API then the Sequelize OR
 
 Also incorporates an authentication layer using crypto-js, bcrypt and also jsonwebtoken to encrypt sensitive data and ensure that only authenticated users can communicate and access only their todos.
 
+View live demo on Heroku [here](https://reubens-node-todo-api.herokuapp.com).
+
 ## API Endpoints
 
 All data is returned in JSON format.
@@ -57,5 +59,6 @@ A DELETE request to this endpoint will destroy the web token effectively logging
 ## Todo list
 
 - [ ] Refactor for ES2015 and also pulling API endpoints into their own file
-- [ ] Set Github Pages site to test and host docs
+- [ ] Setup test suite
+- [ ] Build basic front end / link to other todo project
 - [ ] Refactor readme.md to have endpoints as headings with HTTP request verbs as sub-headings
