@@ -22,7 +22,7 @@
     "sequelize": "^3.14.1",
     "underscore": "^1.8.3"
   },
-  "devdependancies": {
+  "devDependencies": {
     "sqlite3": "^3.1.1"
   }
 }
