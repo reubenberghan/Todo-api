@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "RESTful todo api that uses SQLite to store todo's",
   "main": "server.js",
+  "engines": {
+    "node": "6.11.1"
+  },
   "scripts": {
     "start": "node server.js"
   },
