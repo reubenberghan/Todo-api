@@ -1,7 +1,7 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "description": "RESTful todo api that uses SQLite to store todo's",
+  "description": "RESTful todo api that uses SQL database to store todo's",
   "main": "server.js",
   "engines": {
     "node": "6.11.1"
@@ -20,7 +20,9 @@
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.14.1",
-    "sqlite3": "^3.1.1",
     "underscore": "^1.8.3"
+  },
+  "devdependancies": {
+    "sqlite3": "^3.1.1"
   }
 }
